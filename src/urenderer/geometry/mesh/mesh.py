@@ -66,15 +66,15 @@ class Mesh:
         self._vao = GL.glGenVertexArrays(1)
         self._vbo = GL.glGenBuffers(1)
         self._ebo = GL.glGenBuffers(1)
-
-        self.index = index
-
+       
         self._vertex = vertex
         self._index = index
         self._uv = uv
         self._color = color
         self._normal = normal
         self._update_vbo()
+        
+        self.index = index  # calls _update_ebo
 
     def _update_ebo(self):
         '''
@@ -86,6 +86,32 @@ class Mesh:
         ## SEU CÓDIGO AQUI ######################################################
         # Faça bind do VAO e EBO e envie os dados do EBO
 
+        print("update EBO")
+        GL.glBindVertexArray(self._vao)
+
+        GL.glBindBuffer(GL.GL_ARRAY_BUFFER, self._vbo)
+        GL.glBufferData(GL.GL_ARRAY_BUFFER, self._vertex.nbytes,
+                        self._vertex, GL.GL_STATIC_DRAW)
+
+        GL.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, self._ebo)
+        GL.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER,
+                        self._index.nbytes, self._index, GL.GL_STATIC_DRAW)
+
+        float_size = np.dtype(np.float32).itemsize
+
+        GL.glVertexAttribPointer(0, 3,
+                                GL.GL_FLOAT, GL.GL_FALSE,
+                                5*float_size,
+                                c_void_p(0))
+        GL.glEnableVertexAttribArray(0)
+
+        GL.glVertexAttribPointer(1, 2,
+                                GL.GL_FLOAT, GL.GL_FALSE,
+                                5*float_size,
+                                c_void_p(3*float_size))
+        GL.glEnableVertexAttribArray(1)
+
+        GL.glBindVertexArray(0)
         #########################################################################
 
     def _update_vbo(self):
@@ -158,7 +184,7 @@ class Mesh:
         '''
         ## SEU CÓDIGO AQUI ######################################################
         # Realiza o bind do VAO ao contexto e desenha a geometria contida nele
-
+        GL.glBindVertexArray(vao)
         #########################################################################
 
     @property
