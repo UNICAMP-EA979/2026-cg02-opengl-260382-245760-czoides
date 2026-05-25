@@ -88,29 +88,13 @@ class Mesh:
 
         print("update EBO")
         GL.glBindVertexArray(self._vao)
-
-        GL.glBindBuffer(GL.GL_ARRAY_BUFFER, self._vbo)
-        GL.glBufferData(GL.GL_ARRAY_BUFFER, self._vertex.nbytes,
-                        self._vertex, GL.GL_STATIC_DRAW)
+        
 
         GL.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, self._ebo)
         GL.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER,
                         self._index.nbytes, self._index, GL.GL_STATIC_DRAW)
 
-        float_size = np.dtype(np.float32).itemsize
-
-        GL.glVertexAttribPointer(0, 3,
-                                GL.GL_FLOAT, GL.GL_FALSE,
-                                5*float_size,
-                                c_void_p(0))
-        GL.glEnableVertexAttribArray(0)
-
-        GL.glVertexAttribPointer(1, 2,
-                                GL.GL_FLOAT, GL.GL_FALSE,
-                                5*float_size,
-                                c_void_p(3*float_size))
-        GL.glEnableVertexAttribArray(1)
-
+        
         GL.glBindVertexArray(0)
         #########################################################################
 
@@ -137,6 +121,8 @@ class Mesh:
 
         ## SEU CÓDIGO AQUI ######################################################
         # Bind the VAO and VBO
+        GL.glBindVertexArray(self._vao)
+        GL.glBindBuffer(GL.GL_ARRAY_BUFFER, self._vbo)
 
         #########################################################################
 
@@ -164,7 +150,21 @@ class Mesh:
 
         ## SEU CÓDIGO AQUI ######################################################
         # Envia os dados para o buffer
+        GL.glBufferData(GL.GL_ARRAY_BUFFER, self._vertex.nbytes,
+                        self._vertex, GL.GL_STATIC_DRAW)
+        float_size = np.dtype(np.float32).itemsize
 
+        GL.glVertexAttribPointer(0, 3,
+                                GL.GL_FLOAT, GL.GL_FALSE,
+                                5*float_size,
+                                c_void_p(0))
+        GL.glEnableVertexAttribArray(0)
+
+        GL.glVertexAttribPointer(1, 2,
+                                GL.GL_FLOAT, GL.GL_FALSE,
+                                5*float_size,
+                                c_void_p(3*float_size))
+        GL.glEnableVertexAttribArray(1)
         # Configura os atributos do buffer
 
         if self._color is not None:
@@ -184,7 +184,8 @@ class Mesh:
         '''
         ## SEU CÓDIGO AQUI ######################################################
         # Realiza o bind do VAO ao contexto e desenha a geometria contida nele
-        GL.glBindVertexArray(vao)
+        GL.glBindVertexArray(self._vao)
+        GL.glDrawElements(GL.GL_TRIANGLES, 6, GL.GL_UNSIGNED_INT, None)
         #########################################################################
 
     @property
