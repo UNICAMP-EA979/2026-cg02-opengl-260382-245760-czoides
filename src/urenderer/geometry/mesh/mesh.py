@@ -150,8 +150,8 @@ class Mesh:
 
         ## SEU CÓDIGO AQUI ######################################################
         # Envia os dados para o buffer
-        GL.glBufferData(GL.GL_ARRAY_BUFFER, self._vertex.nbytes,
-                        self._vertex, GL.GL_STATIC_DRAW)
+        GL.glBufferData(GL.GL_ARRAY_BUFFER, data.nbytes,
+                        data, GL.GL_STATIC_DRAW)
         float_size = np.dtype(np.float32).itemsize
 
         GL.glVertexAttribPointer(0, 3,

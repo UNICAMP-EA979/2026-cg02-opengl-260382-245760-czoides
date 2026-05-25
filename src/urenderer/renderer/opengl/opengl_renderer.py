@@ -87,7 +87,7 @@ class OpenGLRenderer(Renderer):
         GL.glEnable(GL.GL_DEPTH_TEST)
 
         self._window = cast(GLFWWindow, window)
-        self.background_color = np.array([1.0, 0.0, 1.0, 1.0])
+        self.background_color = np.array([0.04, 0.04, 0.04, 1.0])
 
     def _framebuffer_size_callback(self, window: GLFWWindow,
                                    width: int, height: int):
@@ -120,7 +120,7 @@ class OpenGLRenderer(Renderer):
         # Limpe os buffers de cor e profundidade (COLOR_BUFFER e DEPTH_BUFFER)
         # Para o de cor, utilize a cor self.background_color
          # Limpa os buffers
-        GL.glClearColor(1.0, 0.0, 1.0, 1.0)
+        GL.glClearColor(0.04, 0.04, 0.04, 1.0)
         GL.glClear(int(GL.GL_COLOR_BUFFER_BIT) | int(GL.GL_DEPTH_BUFFER_BIT))
         #########################################################################
 
@@ -162,6 +162,7 @@ class OpenGLRenderer(Renderer):
         # uniform para todo uso do material.
         #
         # Atente-se que os valores precisam ser convertidos para np.float32
+        print(self._projection_matrix)
         material.shader.set_uniform("modelTransformation", model_transformation.astype(np.float32))
         material.shader.set_uniform("viewTransformation", self._view_matrix.astype(np.float32))
         material.shader.set_uniform("projectionMatrix", self._projection_matrix.astype(np.float32))
