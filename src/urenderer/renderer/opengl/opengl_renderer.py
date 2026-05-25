@@ -162,7 +162,7 @@ class OpenGLRenderer(Renderer):
         # uniform para todo uso do material.
         #
         # Atente-se que os valores precisam ser convertidos para np.float32
-        print(self._projection_matrix)
+        # print(self._projection_matrix)
         material.shader.set_uniform("modelTransformation", model_transformation.astype(np.float32))
         material.shader.set_uniform("viewTransformation", self._view_matrix.astype(np.float32))
         material.shader.set_uniform("projectionMatrix", self._projection_matrix.astype(np.float32))
