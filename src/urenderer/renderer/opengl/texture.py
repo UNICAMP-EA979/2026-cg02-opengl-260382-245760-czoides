@@ -40,17 +40,23 @@ class Texture:
 
         ## SEU CÓDIGO AQUI ######################################################
         # Cria a textura
+        texture_id = GL.glGenTextures(1)
 
         # Realiza o bind no contexto
+        GL.glBindTexture(GL.GL_TEXTURE_2D, texture_id)
 
         # Define os parâmetros da textura
         self.parameters: dict[IntConstant, int] = {}
         for parameter, value in Texture._default_parameters.items():
-            GL.glTexParameteri(...)
+            GL.glTexParameteri(GL.GL_TEXTURE_2D, parameter, value)
 
         # Especifica os dados da textura
 
         # Gera os mipmaps da textura
+        GL.glTexImage2D(GL.GL_TEXTURE_2D, 0, GL.GL_RGB, 
+                        texture_data.shape[1], texture_data.shape[0],
+                        0, GL.GL_RGB, GL.GL_UNSIGNED_BYTE,
+                        texture_data)
 
         #########################################################################
 
@@ -66,6 +72,11 @@ class Texture:
         ## SEU CÓDIGO AQUI ######################################################
         # Ativa a texture unit e realiza o bind da textura
         # OBS: cada texture unit é sequencial: GL.GL_TEXTURE1 = GL.GL_TEXTURE0+1
+
+        GL.glActiveTexture(GL.GL_TEXTURE0 + unit)
+
+        # Realiza o bind no contexto
+        GL.glBindTexture(GL.GL_TEXTURE_2D, self._texture_id)
 
         #########################################################################
 
