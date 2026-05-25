@@ -16,7 +16,7 @@ void main()
 {
    // projectionMatrix *  viewTransformation * modelTransformation *
    //
-   gl_Position =  viewTransformation * modelTransformation * vec4(position, 1.0);
+   gl_Position = projectionMatrix * viewTransformation * modelTransformation * vec4(position, 1.0);
    color = vec3(position.z, position.z, position.z);
 }
 
