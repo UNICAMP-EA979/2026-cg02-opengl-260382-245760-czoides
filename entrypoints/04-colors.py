@@ -21,8 +21,10 @@ if __name__ == "__main__":
     node.render_data["material"] = material
 
     ## SEU CÓDIGO AQUI ######################################################
-    # Defina as cores dos vértices
-
+    ##Defina as cores dos vértices
+    node.render_data["mesh"].color = np.array([1, 0, 0,
+                                               0, 1, 0,
+                                               0, 0, 1], np.float32)
     #########################################################################
 
     runtime.scene.add_child(node)

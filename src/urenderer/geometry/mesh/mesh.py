@@ -156,19 +156,23 @@ class Mesh:
 
         GL.glVertexAttribPointer(0, 3,
                                 GL.GL_FLOAT, GL.GL_FALSE,
-                                5*float_size,
+                                n_item*float_size,
                                 c_void_p(0))
         GL.glEnableVertexAttribArray(0)
 
         GL.glVertexAttribPointer(1, 2,
                                 GL.GL_FLOAT, GL.GL_FALSE,
-                                5*float_size,
+                                n_item*float_size,
                                 c_void_p(3*float_size))
         GL.glEnableVertexAttribArray(1)
         # Configura os atributos do buffer
 
         if self._color is not None:
-            ...
+            GL.glVertexAttribPointer(2, 3,
+                                GL.GL_FLOAT, GL.GL_FALSE,
+                                n_item*float_size,
+                                c_void_p(5*float_size))
+            GL.glEnableVertexAttribArray(2)
 
         if self._normal is not None:
             ...
