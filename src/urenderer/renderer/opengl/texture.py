@@ -107,6 +107,7 @@ class Texture:
             Texture: loaded texture
         '''
         texture_data = cv.imread(path, cv.IMREAD_UNCHANGED)
+        texture_data = cv.cvtColor(texture_data, cv.COLOR_BGR2RGB)
 
         texture_data = np.flipud(texture_data)
 
