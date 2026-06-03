@@ -29,6 +29,9 @@ if __name__ == "__main__":
     ## SEU CÓDIGO AQUI ######################################################
     # Carregue a textura "textures/baboon.png" para a texture unit 0,
     # associada à variável texture0
+
+    texture = urenderer.renderer.opengl.Texture.load_file("./textures/baboon.png")
+    material.set_texture(0, 't', texture)
     #
     # Utilize urenderer.renderer.opengl.Texture.load_file e material.set_texture
 

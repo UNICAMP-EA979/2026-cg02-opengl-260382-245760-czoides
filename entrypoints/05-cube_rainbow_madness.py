@@ -10,7 +10,7 @@ def update_cube(node: Node, deltaTime: float, time_since_start: float) -> None:
 
     ## SEU CÓDIGO AQUI ######################################################
     # Defina a uniform "time" do material como time_since_start
-
+    material.set_uniform("time", time_since_start)
     #########################################################################
 
     time_since_start /= 10
@@ -34,7 +34,14 @@ if __name__ == "__main__":
 
     ## SEU CÓDIGO AQUI ######################################################
     # Crie vários cubos em posições e escalas aleatórias
-
+    for i in range(10):
+        cube = Node()
+        cube.translation = np.random.uniform(-5, 5, size=3)
+        cube.scale = np.random.uniform(0.1, 0.5, size=3)
+        cube.render_data["mesh"] = urenderer.geometry.mesh.get_mesh_cube()
+        cube.render_data["material"] = material
+        cube.callbacks.append(update_cube)
+        runtime.scene.add_child(cube)
     #########################################################################
 
     runtime.loop(n=4000, capture=np.arange(0, 4000, 40, dtype=np.int32))

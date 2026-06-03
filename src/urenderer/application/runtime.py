@@ -72,17 +72,22 @@ class Runtime:
         nodes = deque([(self.scene, self.scene.model_transform)])
         while len(nodes) != 0:
             node, transformation = nodes.pop()
-
+            #print(node.name, end = ": ")
+            #print(transformation)
             # Traverse the node children
             for child in node.children:
                 ## SEU CÓDIGO AQUI #####################################################
                 # Crie a transformação do nó filho, concatenando com as transformações anteriores
 
+                # Create child transformation
+                #print(child.name, end=" ")
+                child_transformation = transformation @ child.model_transform
+
                 #########################################################################
 
                 # Add child to the processing queue
                 nodes.append((child, child_transformation))
-
+            #print()
             self._renderer.render(node, transformation)
 
         self._renderer.end(capture)
